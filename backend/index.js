@@ -69,6 +69,19 @@ app.get('/bfhl', (_req, res) => {
 // ─── Health ────────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
+// ─── GET / (Root response) ────────────────────────────────────────────────
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    message: 'BFHL API is running',
+    developer: IDENTITY,
+    endpoints: {
+      post_bfhl: '/bfhl',
+      get_bfhl: '/bfhl',
+      health: '/health'
+    }
+  });
+});
+
 // ─── Start ─────────────────────────────────────────────────────────────────
 if (require.main === module) {
   app.listen(PORT, () => {
