@@ -1,24 +1,28 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/bfhl",
-      "destination": "/api/index.js"
+      "src": "backend/index.js",
+      "use": "@vercel/node"
     },
     {
-      "source": "/health",
-      "destination": "/api/index.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
     }
   ],
-  "redirects": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/index.html",
-      "permanent": false
+      "src": "/bfhl",
+      "dest": "backend/index.js"
+    },
+    {
+      "src": "/health",
+      "dest": "backend/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/$1"
     }
   ]
 }
