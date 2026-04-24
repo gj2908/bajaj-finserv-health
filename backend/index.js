@@ -70,11 +70,13 @@ app.get('/bfhl', (_req, res) => {
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 // ─── Start ─────────────────────────────────────────────────────────────────
-app.listen(PORT, () => {
-  console.log(`✅  BFHL API running  →  http://localhost:${PORT}`);
-  console.log('   POST /bfhl  — main endpoint');
-  console.log('   GET  /bfhl  — usage hint');
-  console.log('   GET  /health — health check');
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`✅  BFHL API running  →  http://localhost:${PORT}`);
+    console.log('   POST /bfhl  — main endpoint');
+    console.log('   GET  /bfhl  — usage hint');
+    console.log('   GET  /health — health check');
+  });
+}
 
 module.exports = app;
