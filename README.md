@@ -45,9 +45,15 @@ node index.js
 ```bash
 cd frontend
 npm install
+# Set backend URL if running separately (defaults to local proxy)
+# VITE_API_URL=https://your-backend.herokuapp.com npm run dev
 npm run dev
 # → http://localhost:5173
 ```
+
+### 4. Vercel Deployment
+If you are deploying the frontend on Vercel, go to **Settings > Environment Variables** and add:
+- `VITE_API_URL`: The full URL of your deployed backend (e.g., `https://my-api.vercel.app`)
 
 ---
 

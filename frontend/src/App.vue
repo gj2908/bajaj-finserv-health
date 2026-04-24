@@ -281,7 +281,10 @@ const IconCode = {
   </svg>`
 }
 
-// ── State ─────────────────────────────────────────────────────────────────────
+// ── Configuration ──────────────────────────────────────────────────────────
+const API_BASE = import.meta.env.VITE_API_URL || ''
+
+// ── State ──────────────────────────────────────────────────────────────────
 const rawInput = ref('')
 const loading  = ref(false)
 const error    = ref('')
@@ -306,7 +309,7 @@ function hasChildren(obj) {
 // ── Health check ──────────────────────────────────────────────────────────────
 async function checkHealth() {
   try {
-    const res = await fetch('/health')
+    const res = await fetch(`${API_BASE}/health`)
     apiOk.value = res.ok
   } catch {
     apiOk.value = false
@@ -328,7 +331,7 @@ async function submit() {
     .filter(Boolean)
 
   try {
-    const res = await fetch('/bfhl', {
+    const res = await fetch(`${API_BASE}/bfhl`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: tokens }),
