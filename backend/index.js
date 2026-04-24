@@ -5,29 +5,18 @@ const { processBfhlData } = require('./src/processor');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
 
-// ─── CORS ──────────────────────────────────────────────────────────────────
-const corsOptions = {
-  origin:
-    CORS_ORIGIN === '*'
-      ? true
-      : CORS_ORIGIN.split(',').map(o => o.trim()),
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
-app.options('/{*path}', cors(corsOptions)); // pre-flight
+// ─── CORS (Ultra Permissive) ────────────────────────────────────────────────
+app.use(cors()); // Defaults to Access-Control-Allow-Origin: *
 
 // ─── Body parsing ──────────────────────────────────────────────────────────
 app.use(express.json());
 
-// ─── Identity (configure via .env) ─────────────────────────────────────────
+// ─── Identity ──────────────────────────────────────────────────────────────
 const IDENTITY = {
-  user_id:            process.env.USER_ID       || 'fullname_ddmmyyyy',
-  email_id:           process.env.EMAIL         || 'you@srmist.edu.in',
-  college_roll_number: process.env.ROLL_NUMBER  || 'RA2211003011234',
+  user_id:            process.env.USER_ID       || 'gaurang_jadoun',
+  email_id:           process.env.EMAIL         || 'gj6117@srmist.edu.in',
+  college_roll_number: process.env.ROLL_NUMBER  || 'RA2311004030007',
 };
 
 // ─── POST /bfhl ────────────────────────────────────────────────────────────
@@ -86,9 +75,6 @@ app.get('/', (_req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`✅  BFHL API running  →  http://localhost:${PORT}`);
-    console.log('   POST /bfhl  — main endpoint');
-    console.log('   GET  /bfhl  — usage hint');
-    console.log('   GET  /health — health check');
   });
 }
 
